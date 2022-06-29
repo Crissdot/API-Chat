@@ -1,17 +1,25 @@
+const store = require('./store');
+
+function getMessages() {
+    return new Promise((resolve, reject) => {
+        resolve(store.getMessages());
+    });
+}
 
 function addMessage(user, message) {
     return new Promise((resolve, reject) => {
         if(!user || !message) {
             console.error('Invalid data');
-            reject('The data cannot be empty');
+            return reject('The data cannot be empty');
         }
         const fullMessage = {
             user,
             message,
             date: new Date(),
         };
-        resolve(fullMessage);
+        store.addMessage(fullMessage);
+        return resolve(fullMessage);
     });
 }
 
-module.exports = { addMessage }
+module.exports = { getMessages, addMessage }

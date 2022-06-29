@@ -7,11 +7,11 @@ const controller = require('./controller');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-    console.log(req.headers);
-    res.header({
-        'custom-header': 'This is a custom header',
+    controller.getMessages().then((data) => {
+        response.success(req, res, 'Messages List', data);
+    }).catch((error) => {
+        response.error(req, res, 'Error', error);
     });
-    response.success(req, res, 'Messages List');
 });
 
 router.post('/', (req, res) => {
