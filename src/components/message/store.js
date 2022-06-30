@@ -1,11 +1,32 @@
-const list = [];
+const db = require('mongoose');
+const Model = require('./model');
 
-function getMessages() {
-    return list;
+const { config } = require('../../../config');
+
+db.Promise = global.Promise;
+
+const USER = encodeURIComponent(config.dbUser);
+const PASSWORD = encodeURIComponent(config.dbPassword);
+const URI = `mongodb+srv://${USER}:${PASSWORD}@${config.dbHost}/${config.dbName}?retryWrites=true&w=majority`;
+
+db.connect(URI , {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+}).then(() => {
+    console.log('DB connected');
+}).catch((error) => {
+    console.error('DB ERROR', error);
+});
+
+async function getMessages() {
+    const messages = await Model.find();
+    return messages;
 }
 
-function addMessage(message) {
-    list.push(message);
+async function addMessage(message) {
+    const myMessages = new Model(message);
+    const newMessage = await myMessages.save();
+    return newMessage;
 }
 
 module.exports = { getMessages, addMessage };
