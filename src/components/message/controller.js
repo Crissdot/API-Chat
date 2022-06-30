@@ -1,8 +1,8 @@
 const store = require('./store');
 
-function getMessages() {
+function getMessages(filterUser) {
     return new Promise((resolve, reject) => {
-        return store.getMessages().then(resolve).catch(reject);
+        return store.getMessages(filterUser).then(resolve).catch(reject);
     });
 }
 

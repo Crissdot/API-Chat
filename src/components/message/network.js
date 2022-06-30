@@ -7,10 +7,12 @@ const controller = require('./controller');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-    controller.getMessages().then((data) => {
+    const filterMessages = req.query.user || null;
+
+    controller.getMessages(filterMessages).then((data) => {
         response.success(req, res, 'Messages List', data);
     }).catch((error) => {
-        response.error(req, res, 'Error', error);
+        response.error(req, res, 'Error', error, 404);
     });
 });
 
