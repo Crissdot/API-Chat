@@ -41,4 +41,12 @@ async function updateMessage(id, message) {
     return updatedMessage;
 }
 
-module.exports = { getMessages, addMessage, updateMessage };
+async function deleteMessage(id) {
+    const deletedMessage = await Model.findByIdAndDelete(id);
+    return new Promise((resolve, reject) => {
+        if(deletedMessage === null) return reject('User not found');
+        return resolve(deletedMessage);
+    });
+}
+
+module.exports = { getMessages, addMessage, updateMessage, deleteMessage };

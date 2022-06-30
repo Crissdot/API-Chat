@@ -31,4 +31,14 @@ function updateMessage(id, message) {
     });
 }
 
-module.exports = { getMessages, addMessage, updateMessage }
+function deleteMessage(id) {
+    return new Promise((resolve, reject) => {
+        if(!id) {
+            console.error('You must send an id');
+            return reject('The id cannot be empty');
+        }
+        return store.deleteMessage(id).then(resolve).catch(reject);
+    });
+}
+
+module.exports = { getMessages, addMessage, updateMessage, deleteMessage }

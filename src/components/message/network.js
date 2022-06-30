@@ -35,4 +35,13 @@ router.patch('/:id', (req, res) => {
     });
 });
 
+router.delete('/:id', (req, res) => {
+    const { id } = req.params;
+    controller.deleteMessage(id).then((data) => {
+        response.success(req, res, 'Deleted', data);
+    }).catch((error) => {
+        response.error(req, res, 'Error', error, 400);
+    });
+});
+
 module.exports = router;
