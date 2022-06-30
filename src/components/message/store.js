@@ -29,4 +29,11 @@ async function addMessage(message) {
     return newMessage;
 }
 
-module.exports = { getMessages, addMessage };
+async function updateMessage(id, message) {
+    const updatedMessage = await Model.findById(id);
+    updatedMessage.message = message;
+    await updatedMessage.save();
+    return updatedMessage;
+}
+
+module.exports = { getMessages, addMessage, updateMessage };
