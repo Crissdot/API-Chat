@@ -1,5 +1,7 @@
 const express = require('express');
 
+const db = require('./db');
+
 const routerApi = require('./src/network/routes');
 
 const port = 3000;
@@ -12,5 +14,5 @@ routerApi(app);
 //app.get('/', express.static('public'));
 
 app.listen(port, () => {
-    console.log('Listening at: http://localhost:' + port);
+    db.connect().then(() => {console.log('Listening at: http://localhost:' + port)});
 });
