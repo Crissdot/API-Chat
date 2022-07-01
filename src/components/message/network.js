@@ -7,8 +7,7 @@ const controller = require('./controller');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-    const filterMessages = req.query.user || null;
-
+    const filterMessages = req.query.chat || null;
     controller.getMessages(filterMessages).then((data) => {
         response.success(req, res, 'Messages List', data);
     }).catch((error) => {
@@ -17,8 +16,8 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-    const { user, message } = req.body;
-    controller.addMessage(user, message).then((data) => {
+    const { chat, user, message } = req.body;
+    controller.addMessage(chat, user, message).then((data) => {
         response.success(req, res, 'Created', data, 201);
     }).catch((error) => {
         response.error(req, res, 'Error', error, 400);

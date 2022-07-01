@@ -1,18 +1,19 @@
 const store = require('./store');
 
-function getMessages(filterUser) {
+function getMessages(filterChat) {
     return new Promise((resolve, reject) => {
-        return store.getMessages(filterUser).then(resolve).catch(reject);
+        return store.getMessages(filterChat).then(resolve).catch(reject);
     });
 }
 
-function addMessage(user, message) {
+function addMessage(chat, user, message) {
     return new Promise((resolve, reject) => {
-        if(!user || !message) {
+        if(!chat || !user || !message) {
             console.error('Invalid data');
             return reject('The data cannot be empty');
         }
         const fullMessage = {
+            chat,
             user,
             message,
             date: new Date(),

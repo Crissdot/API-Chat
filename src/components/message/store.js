@@ -8,7 +8,6 @@ function getMessages(filterUser) {
             if(error) return reject(error);
             if(data.length === 0) return reject('User not found');
 
-            console.log(data)
             return resolve(data);
         });
     });
