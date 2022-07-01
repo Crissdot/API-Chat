@@ -1,12 +1,16 @@
 const Model = require('./model');
 
-async function getMessages(filterUser) {
+function getMessages(filterUser) {
     const filter = {}
     if(filterUser !== null) filter.user = filterUser;
-    const messages = await Model.find(filter);
     return new Promise((resolve, reject) => {
-        if(messages.length === 0) return reject('User not found');
-        return resolve(messages);
+        Model.find(filter).populate('user').exec((error, data) => {
+            if(error) return reject(error);
+            if(data.length === 0) return reject('User not found');
+
+            console.log(data)
+            return resolve(data);
+        });
     });
 }
 
