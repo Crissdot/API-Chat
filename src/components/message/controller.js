@@ -6,17 +6,24 @@ function getMessages(filterChat) {
     });
 }
 
-function addMessage(chat, user, message) {
+function addMessage(chat, user, message, file) {
     return new Promise((resolve, reject) => {
         if(!chat || !user || !message) {
             console.error('Invalid data');
             return reject('The data cannot be empty');
         }
+
+        let fileUrl = '';
+        if(file) {
+            fileUrl = 'http://localhost:3000/api/v1/app/files/' + file.filename;
+        }
+
         const fullMessage = {
             chat,
             user,
             message,
             date: new Date(),
+            file: fileUrl,
         };
         return store.addMessage(fullMessage).then(resolve).catch(reject);
     });

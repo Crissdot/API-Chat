@@ -11,8 +11,6 @@ app.use(express.json());
 
 routerApi(app);
 
-//app.get('/', express.static('public'));
-
 app.listen(port, () => {
     db.connect().then(() => {console.log('Listening at: http://localhost:' + port)});
 });
