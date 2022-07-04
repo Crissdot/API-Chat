@@ -3,9 +3,12 @@ const port = 3000;
 const app = express();
 const server = require('http').Server(app);
 
+const cors = require('cors');
 const socketIO = require('./lib/socket');
 const db = require('./db');
 const routerApi = require('./src/network/routes');
+
+app.use(cors());
 
 app.use(express.json());
 
