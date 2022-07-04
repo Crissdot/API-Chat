@@ -1,5 +1,5 @@
 const express = require('express');
-const port = 3000;
+const { config } = require('./config');
 const app = express();
 const server = require('http').Server(app);
 
@@ -15,6 +15,6 @@ app.use(express.json());
 socketIO.connect(server);
 routerApi(app);
 
-server.listen(port, () => {
-    db.connect().then(() => {console.log('Listening at: http://localhost:' + port)});
+server.listen(config.port, () => {
+    db.connect().then(() => {console.log(`Listening at: ${config.host}:${config.port}`)});
 });
