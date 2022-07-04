@@ -1,4 +1,5 @@
 const store = require('./store');
+const { socket } = require('../../../lib/socket');
 
 function getMessages(filterChat) {
     return new Promise((resolve, reject) => {
@@ -25,6 +26,9 @@ function addMessage(chat, user, message, file) {
             date: new Date(),
             file: fileUrl,
         };
+
+        socket.io.emit('message', fullMessage);
+
         return store.addMessage(fullMessage).then(resolve).catch(reject);
     });
 }
